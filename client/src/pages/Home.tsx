@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 
 import { Loader, Card, FormField } from '../components';
+import { PostInterface } from '../interfaces/Post';
 
 type RenderCardsProps = {
   data: any;
@@ -18,8 +19,10 @@ const RenderCards = ({ data, title }: RenderCardsProps) => {
 
 const Home = () => {
   const [loading, setLoading] = useState(false);
-  const [allPosts, setAllPosts] = useState(null);
+  const [allPosts, setAllPosts] = useState<PostInterface[]>([]);
   const [searchText, setSearchText] = useState('');
+  const [searchedResults, setSearchedResults] = useState<PostInterface[]>([]);
+  const [searchTimeout, setSearchTimeout] = useState<any>(null);
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -44,6 +47,23 @@ const Home = () => {
     fetchPosts();
   }, []);
 
+  const handleSearchChange = (e: any) => {
+    clearTimeout(searchTimeout);
+    setSearchText(e.target.value);
+
+    setSearchTimeout(
+      setTimeout(() => {
+        const searchResults = allPosts.filter(
+          (item: PostInterface) =>
+            item.name.toLowerCase().includes(searchText.toLowerCase()) ||
+            item.prompt.toLowerCase().includes(searchText.toLowerCase())
+        );
+
+        setSearchedResults(searchResults);
+      }, 500)
+    );
+  };
+
   return (
     <section className='max-w-7xl mx-auto'>
       <div>
@@ -57,12 +77,12 @@ const Home = () => {
       </div>
       <div className='mt-16'>
         <FormField
-          labelName='Search'
+          labelName='Search post'
           type='text'
-          name='search'
-          placeholder='Search by name'
+          name='text'
+          placeholder='Search posts'
           value={searchText}
-          handleChange={(e: any) => setSearchText(e.target.value)}
+          handleChange={handleSearchChange}
         />
       </div>
 
@@ -81,7 +101,10 @@ const Home = () => {
             )}
             <div className='grid lg:grid-cols-4 sm:grid-cols-3 xs:grid-cols-2 grid-cols-1 gap-3'>
               {searchText ? (
-                <RenderCards data={[]} title='No searched results found' />
+                <RenderCards
+                  data={searchedResults}
+                  title='No searched results found'
+                />
               ) : (
                 <RenderCards data={allPosts} title='No posts found' />
               )}
