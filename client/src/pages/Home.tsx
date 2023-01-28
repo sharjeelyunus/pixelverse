@@ -33,7 +33,14 @@ const Home = () => {
         </p>
       </div>
       <div className='mt-16'>
-        <FormField />
+        <FormField
+          labelName='Search'
+          type='text'
+          name='search'
+          placeholder='Search by name'
+          value={searchText}
+          handleChange={(e: any) => setSearchText(e.target.value)}
+        />
       </div>
 
       <div className='mt-10'>
