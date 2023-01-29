@@ -9,11 +9,13 @@ These instructions will get you a copy of the project up and running on your loc
 ### Installing
 
 1. Clone the repository:
+
 ```
 https://github.com/sharjeelyunus/pixelverse.git
 ```
 
 2. Install the dependencies:
+
    ```
    cd client
    npm install
@@ -23,6 +25,7 @@ https://github.com/sharjeelyunus/pixelverse.git
    ```
 
 3. Create a `.env` file in the root directory of server and add your MongoDB, Cloudinary and OpenAI API key:
+
     ```
     OPENAI_API_KEY=<your_openai_api_key>
     MONGODB_URL=<your_mongo_url>
@@ -30,14 +33,18 @@ https://github.com/sharjeelyunus/pixelverse.git
     CLOUDINARY_API_KEY=<your_cloudinary_api_key>
     CLOUDINARY_API_SECRET=<your_cloudinary_api_secret>
     ```
-4. Start the development sercer:
+
+4. Start the development server:
+
     ```
     cd server
     npm run start
     cd client
     npm run start
     ```
+
 ## Built with
+
 - MERN stack (MongoDB, Express, React, Node.js)
 - Typescript
 - Cloudinary for image management
@@ -53,7 +60,6 @@ If you have any questions or feedback, please reach out to me at [sharjeel924@gm
 
 ## Future plans
 
-- Add authentication for users
-- Add more filters and editing options
-- Improving the social media aspect of the platform
-
+- [ ] Add authentication for users
+- [ ] Add more filters and editing options
+- [ ] Improving the social media aspect of the platform
